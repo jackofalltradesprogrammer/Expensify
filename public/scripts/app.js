@@ -4,4 +4,5 @@ console.log("App.js is running!");
 var template = React.createElement("p", null, " This is JSX from app.js!");
 var appRoot = document.getElementById("app");
 
+// render() method is using to render the jsx code on the elmeent 
 ReactDOM.render(template, appRoot);
