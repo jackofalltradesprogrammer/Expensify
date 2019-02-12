@@ -1,58 +1,70 @@
-"use strict";
+'use strict';
 
 console.log("App.js is running!");
 
+// create app object title/subtile
+var app = {
+    title: 'I do not know what to write',
+    subtitle: 'I still do not know'
+};
 // JSX - JavaScript XML
 var template = React.createElement(
-    "div",
+    'div',
     null,
     React.createElement(
-        "h1",
+        'h1',
         null,
-        "Indecision App"
+        app.title
     ),
     React.createElement(
-        "p",
+        'p',
         null,
-        "This is some info"
+        app.subtitle
     ),
     React.createElement(
-        "ol",
+        'ol',
         null,
         React.createElement(
-            "li",
+            'li',
             null,
-            "Item one"
+            'Item one'
         ),
         React.createElement(
-            "li",
+            'li',
             null,
-            "Item two"
+            'Item two'
         )
     )
 );
 
+var user = {
+    name: 'Andrew',
+    age: 26,
+    location: 'New York'
+};
 // Create a templateTwo var JSX expression
 var templateTwo = React.createElement(
-    "div",
+    'div',
     null,
     React.createElement(
-        "h1",
+        'h1',
         null,
-        "Harpreet"
+        user.name
     ),
     React.createElement(
-        "p",
+        'p',
         null,
-        "Age: 29"
+        'Age: ',
+        user.age
     ),
     React.createElement(
-        "p",
+        'p',
         null,
-        "Location: New York"
+        'Location: ',
+        user.location
     )
 );
 var appRoot = document.getElementById("app");
 
 // render() method is using to render the jsx code on the elmeent
-ReactDOM.render(templateTwo, appRoot);
+ReactDOM.render(template, appRoot);
