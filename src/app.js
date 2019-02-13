@@ -1,36 +1,50 @@
 console.log("App.js is running!");
 
+// if statements
+// ternary operators
+// logical and operator
+
+// only render the subtitle (and p tag) if subtitle exist - logical and operator
+// render new p tag - if options.length > 0 "Here are your options" "No options"
+
 // create app object title/subtile
 var app = {
-  title: 'I do not know what to write',
-  subtitle: 'I still do not know'  
+  title: "Indecision App",
+  subtitle: "Ichanged it",
+  options: ['One', 'Two']
 };
 // JSX - JavaScript XML
 var template = (
   <div>
     <h1>{app.title}</h1>
-    <p>{app.subtitle}</p>
+    { app.subtitle && <p>{app.subtitle}</p>}
+    <p>{(app.options.length > 0) ? "Here are your options" : "No options" }</p>
     <ol>
-        <li>Item one</li>
-        <li>Item two</li>
+      <li>Item one</li>
+      <li>Item two</li>
     </ol>
-
   </div>
 );
 
 var user = {
     name: 'Andrew',
     age: 26,
-    location: 'New York'
+    location: 'Philadelphia'
 };
-// Create a templateTwo var JSX expression
-var templateTwo =(
-    <div>
-        <h1>{user.name}</h1>
-        <p>Age: {user.age}</p>
-        <p>Location: {user.location}</p>
 
-    </div>
+function getLocation(location) {
+  if (location) {
+    return <p>Location: {location}</p>;
+  }
+  // it returns undefined if nothing is supplied, we can use JSX to
+}
+// Create a templateTwo var JSX expression
+var templateTwo = (
+  <div>
+    <h1>{user.name ? user.name : 'Anonymous'}</h1>
+    {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
+    {getLocation()}
+  </div>
 );
 var appRoot = document.getElementById("app");
 
