@@ -11,14 +11,14 @@ console.log("App.js is running!");
 const app = {
   title: "Indecision App",
   subtitle: "Ichanged it",
-  options: ['One', 'Two']
+  options: ["One", "Two"]
 };
 // JSX - JavaScript XML
 const template = (
   <div>
     <h1>{app.title}</h1>
-    { app.subtitle && <p>{app.subtitle}</p>}
-    <p>{(app.options.length > 0) ? "Here are your options" : "No options" }</p>
+    {app.subtitle && <p>{app.subtitle}</p>}
+    <p>{app.options.length > 0 ? "Here are your options" : "No options"}</p>
     <ol>
       <li>Item one</li>
       <li>Item two</li>
@@ -26,26 +26,29 @@ const template = (
   </div>
 );
 
-const user = {
-    name: 'Andrew',
-    age: 26,
-    location: 'Philadelphia'
+let count = 0;
+const addOne = () => {
+  count = count + 1;
+  console.log("addOne");
 };
-
-function getLocation(location) {
-  if (location) {
-    return <p>Location: {location}</p>;
-  }
-  // it returns undefined if nothing is supplied, we can use JSX to
-}
-// Create a templateTwo var JSX expression
+const minusOne = () => {
+  count = count -1;
+  console.log("minusOne");
+};
+const reset = () => {
+  console.log("Reset Count");
+  count = 0;
+};
+// class attribute from html is called className in JSX as it is reserved
 const templateTwo = (
   <div>
-    <h1>{user.name ? user.name : 'Anonymous'}</h1>
-    {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
-    {getLocation(user.location)}
+    <h1>Count: {count}</h1>
+    <button onClick={addOne}>+1</button>
+    <button onClick={minusOne}>-1</button>
+    <button onClick={reset}>reset</button>
   </div>
 );
+
 const appRoot = document.getElementById("app");
 
 // render() method is using to render the jsx code on the elmeent
