@@ -11,35 +11,37 @@ console.log("App.js is running!");
 const app = {
   title: "Indecision App",
   subtitle: "Ichanged it",
-  options: []
+  options: ['Hello', 'Buffalo']
 };
 
-const onFormSubmit = (e) => {
+const onFormSubmit = e => {
   // it prevents the default behavior of the event
   e.preventDefault();
 
   // target points to the form that started the event
   const option = e.target.elements.option.value;
 
-  if (option){
+  if (option) {
     app.options.push(option);
-    e.target.elements.option.value='';
+    e.target.elements.option.value = "";
     render();
   }
-}
+};
 
 const removeAll = () => {
   app.options = [];
   render();
-}
+};
 // JSX - JavaScript XML
 
 //Create "Remove All" button above list
 // on click -> wipe the array -> rerender
 
-
 const appRoot = document.getElementById("app");
 
+// const numbers = [55, 101, 1000];
+
+// * you can have jsx in jsx and so arrays in JSX can hoave more JSX
 const render = () => {
   const template = (
     <div>
@@ -48,12 +50,15 @@ const render = () => {
       <p>{app.options.length > 0 ? "Here are your options" : "No options"}</p>
       <p>{app.options.length}</p>
       <button onClick={removeAll}>Remove all</button>
+      {/*numbers.map(number => {
+        return <p key={number}>Number: {number}</p>;
+      })*/}
       <ol>
-        <li>Item one</li>
-        <li>Item two</li>
+        {/* // TODO map over app.options getting back an aray of lis (set key and text) */}
+        {app.options.map((option) => <li key={option}>{option}</li>)}
       </ol>
       <form onSubmit={onFormSubmit}>
-        <input type="text" name="option"  />
+        <input type="text" name="option" />
         <button>Add Option</button>
       </form>
     </div>
@@ -62,6 +67,6 @@ const render = () => {
 };
 
 // Create Render function that renders the new jsx
-// Call it right away
+// ** myparam  myparam  Call it right away
 // Call it after options array added to
 render();
