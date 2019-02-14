@@ -11,55 +11,57 @@ console.log("App.js is running!");
 const app = {
   title: "Indecision App",
   subtitle: "Ichanged it",
-  options: ["One", "Two"]
+  options: []
 };
-// JSX - JavaScript XML
-const template = (
-  <div>
-    <h1>{app.title}</h1>
-    {app.subtitle && <p>{app.subtitle}</p>}
-    <p>{app.options.length > 0 ? "Here are your options" : "No options"}</p>
-    <ol>
-      <li>Item one</li>
-      <li>Item two</li>
-    </ol>
-  </div>
-);
 
-let count = 0;
-const addOne = () => {
-  count++;
-  renderCounterApp();
-};
-const minusOne = () => {
-  count--;
-  renderCounterApp();
-};
-const reset = () => {
-  console.log("Reset Count");
-  count = 0;
-  renderCounterApp();
-};
-// class attribute from html is called className in JSX as it is reserved
-// JSX don't have data binding 
+const onFormSubmit = (e) => {
+  // it prevents the default behavior of the event
+  e.preventDefault();
+
+  // target points to the form that started the event
+  const option = e.target.elements.option.value;
+
+  if (option){
+    app.options.push(option);
+    e.target.elements.option.value='';
+    render();
+  }
+}
+
+const removeAll = () => {
+  app.options = [];
+  render();
+}
+// JSX - JavaScript XML
+
+//Create "Remove All" button above list
+// on click -> wipe the array -> rerender
 
 
 const appRoot = document.getElementById("app");
 
-// render() method is using to render the jsx code on the elmeent
-
-
-const renderCounterApp = () => {
-  const templateTwo = (
+const render = () => {
+  const template = (
     <div>
-      <h1>Count: {count}</h1>
-      <button onClick={addOne}>+1</button>
-      <button onClick={minusOne}>-1</button>
-      <button onClick={reset}>reset</button>
+      <h1>{app.title}</h1>
+      {app.subtitle && <p>{app.subtitle}</p>}
+      <p>{app.options.length > 0 ? "Here are your options" : "No options"}</p>
+      <p>{app.options.length}</p>
+      <button onClick={removeAll}>Remove all</button>
+      <ol>
+        <li>Item one</li>
+        <li>Item two</li>
+      </ol>
+      <form onSubmit={onFormSubmit}>
+        <input type="text" name="option"  />
+        <button>Add Option</button>
+      </form>
     </div>
   );
-
-  ReactDOM.render(templateTwo, appRoot);
+  ReactDOM.render(template, appRoot);
 };
 
-renderCounterApp();
+// Create Render function that renders the new jsx
+// Call it right away
+// Call it after options array added to
+render();
