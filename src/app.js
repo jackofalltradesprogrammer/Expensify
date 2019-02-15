@@ -17,7 +17,6 @@ class IndecisionApp extends React.Component {
 }
 class Header extends React.Component {
   render() {
-    console.log(this.props);
     return (
       <div>
         <h1>{this.props.title}</h1>
@@ -48,8 +47,14 @@ class Action extends React.Component {
 // * todo: setup onClick to fire the method
 
 class Options extends React.Component {
+  // * bind method can be used to customize a context execution
+  constructor(props) {
+    super(props); // need to call when overiding constructor
+    this.handleRemoveAll = this.handleRemoveAll.bind(this);
+  }
   handleRemoveAll() {
-    alert("handleRemoveAll");
+    console.log(this.props.options);
+    // alert("handleRemoveAll");
   }
   render() {
     return (
