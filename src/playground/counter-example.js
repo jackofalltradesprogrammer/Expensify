@@ -20,7 +20,10 @@ class Counter extends React.Component {
     });
   }
 
-  // todo : Call this.setState decrement the count by 1
+  //  * todo : Call this.setState decrement the count by 1
+  // ! this.setState is asynchronous as a lot is going on the backend
+  // ! using arrow functions, we set the execution context and hence the state is updated
+  // ! this way we can set the state twice in the same function and it works! 
   handleMinusOne() {
     this.setState((prevState) => {
       return { count: prevState.count - 1 };
