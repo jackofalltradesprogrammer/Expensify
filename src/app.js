@@ -28,23 +28,33 @@ class Header extends React.Component {
 }
 
 class Action extends React.Component {
+  handlePick() {
+    alert("handlePick");
+  }
   render() {
     return (
       <div>
-        <button>What Should I do?</button>
+        <button onClick={this.handlePick}>What Should I do?</button>
       </div>
     );
   }
 }
 
 // * Options -> Options Component here
-// todo: Setup options prop form Options component
-// todo: Render the length of the array
+// * todo: Setup options prop form Options component
+// * todo: Render the length of the array
+// * todo: Add Remove All button
+// * todo: Setup handleRemoveAll -> alert some message
+// * todo: setup onClick to fire the method
 
 class Options extends React.Component {
+  handleRemoveAll() {
+    alert("handleRemoveAll");
+  }
   render() {
     return (
       <div>
+        <button onClick={this.handleRemoveAll}>Remove All</button>
         {this.props.options.map(option => (
           <Option key={option} optionText={option} />
         ))}
@@ -54,9 +64,28 @@ class Options extends React.Component {
 }
 
 // * AddOption -> Add Option component here
+// * todo: 1. Setup the form with text input and submit button
+// * todo: 2. Wire up onSubmit
+// * todo: 3. handleAddOption -> fetch the value typed -> if value, then alert
 class AddOption extends React.Component {
+  // 
+  handleAddOption(e) {
+    // for the form you need event that is being handled and prevent default behavior
+    e.preventDefault();
+    const option = e.target.option.value.trim();
+    if(option){
+    alert("handleAddOption");
+    }
+  }
   render() {
-    return <div>AddOption Component here</div>;
+    return (
+      <div>
+        <form onSubmit={this.handleAddOption}>
+          <input type="text" name="option" />
+          <button>Add Option</button>
+        </form>
+      </div>
+    );
   }
 }
 
