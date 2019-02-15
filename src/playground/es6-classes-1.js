@@ -10,14 +10,52 @@ class Person {
     return `Hi. I am ${this.name}!`;
   }
   getDescription() {
-      return `${this.name} is ${this.age} year(s) old.`;
+    return `${this.name} is ${this.age} year(s) old.`;
   }
 }
 
-const me = new Person('Andrew Mead', 26);
-console.log(me.getGreeting());
-console.log(me.getDescription());
+class Student extends Person {
+  constructor(name, age, major) {
+    super(); // * calls the parent class constructor
+    this.major = major;
+  }
+  hasMajor() {
+    return !!this.major;
+  }
+  getDescription() {
+    let description = super.getDescription(); // * gets the parent description
 
-const other = new Person();
+    if (this.hasMajor()) {
+      description += ` Their major is ${this.major}`;
+    }
+    return description;
+  }
+}
+
+// TODO Traveler -> Person
+// TODO Add support for homeLocation
+// TODO Override getGreeting
+// TODO 1. Hi. I am Andrew Mead. I'm visiting from Philadelphia.
+// TODO 2. Hi. I am Andrew Mead.
+
+class Traveler extends Person {
+  constructor(name, age, homeLocation) {
+    super(name, age);
+    this.homeLocation = homeLocation;
+  }
+
+  getGreeting() {
+    let greeting = super.getGreeting();
+    if (this.homeLocation) {
+      greeting += ` I'm visiting from ${this.homeLocation}`;
+    }
+
+    return greeting;
+  }
+}
+
+const me = new Traveler('Andrew Mead', 26, 'Philadelphia');
+console.log(me.getGreeting());
+
+const other = new Student();
 console.log(other.getGreeting());
-console.log(other.getDescription());
