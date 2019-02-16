@@ -7,18 +7,23 @@ class IndecisionApp extends React.Component {
     this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
     this.handlePick = this.handlePick.bind(this);
     this.handleAddOption = this.handleAddOption.bind(this);
+    this.handleDeleteOption =this.handleDeleteOption.bind(this);
     this.state = {
       options: props.options
     };
   }
   // * todo handleDeleteOptions - Pass the functionality to child components as props is one way only
+  // ! Arrow functions treat {} as a function, for an object we can use ({})
+
   handleDeleteOptions() {
-    this.setState(() => {
-      return {
-        options: []
-      };
-    });
+    this.setState(() => ({options: []}));
   }
+
+  // to delete a single option only
+  handleDeleteOption(option) {
+    console.log('hdo', option);
+  }
+
   // * todo: handlePick - pass down to Action and setup onClick - bind here
   // * todo: randomly pick an option and alert it
   handlePick(){
@@ -34,11 +39,9 @@ class IndecisionApp extends React.Component {
       return 'This option already exits';
     }
 
-    this.setState((prevState) => {
-      return {
-        options: prevState.options.concat([option])
-      };
-    });
+    this.setState((prevState) => ({
+      options: prevState.options.concat([option])
+    }));
   }
   render() {
     const subtitle = 'Put your life in the hands of a computer';
@@ -52,7 +55,8 @@ class IndecisionApp extends React.Component {
         />
         <Options 
           options={this.state.options}
-          handleDeleteOptions={this.handleDeleteOptions}  
+          handleDeleteOptions={this.handleDeleteOptions}
+          handleDeleteOption={this.handleDeleteOption}  
         />
         <AddOption 
           handleAddOption={this.handleAddOption}
@@ -108,7 +112,11 @@ const Options = (props) => {
     <div>
       <button onClick={props.handleDeleteOptions}>Remove All</button>
       {props.options.map((option) => (
-        <Option key={option} optionText={option} />
+        <Option 
+          key={option} 
+          optionText={option}
+          handleDeleteOption={props.handleDeleteOption} 
+        />
       ))}
     </div>
   );
@@ -116,6 +124,23 @@ const Options = (props) => {
 
 // * bind method can be used to customize a context execution
 // * AddOption -> Add Option component here
+
+// * Option -> Option component here
+
+const Option = (props) => {
+  return (
+    <div>{props.optionText}
+      <button 
+        onClick={(e) => {
+          props.handleDeleteOption(props.optionText)
+        }}
+      >
+        remove
+      </button>
+    </div>
+  );
+};
+
 // * todo: 1. Setup the form with text input and submit button
 // * todo: 2. Wire up onSubmit
 // * todo: 3. handleAddOption -> fetch the value typed -> if value, then alert
@@ -135,11 +160,8 @@ class AddOption extends React.Component {
     const option = e.target.option.value.trim();
     const error = this.props.handleAddOption(option);
     
-    this.setState(() => {
-      return {
-        error // error : error - this is ES6 syntax
-      };
-    });
+    // error : error - this is ES6 syntax
+    this.setState(() => ({ error }));
   }
   render() {
     return (
@@ -154,13 +176,6 @@ class AddOption extends React.Component {
   }
 }
 
-// * Option -> Option component here
-
-const Option = (props) => {
-    return (
-      <div>{props.optionText}</div>
-      );
-};
 
 
 
