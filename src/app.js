@@ -12,6 +12,19 @@ class IndecisionApp extends React.Component {
       options: props.options
     };
   }
+
+  componentDidMount() {
+    console.log('fetching data');
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('saving data');
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
+
   // * todo handleDeleteOptions - Pass the functionality to child components as props is one way only
   // ! Arrow functions treat {} as a function, for an object we can use ({})
 
