@@ -20,8 +20,11 @@ class IndecisionApp extends React.Component {
   }
 
   // to delete a single option only
-  handleDeleteOption(option) {
-    console.log('hdo', option);
+  // array's filter method to remove the item
+  handleDeleteOption(optionToRemove) {
+    this.setState((prevState) => ({
+      options: prevState.options.filter((option) => optionToRemove !== option)
+    }));
   }
 
   // * todo: handlePick - pass down to Action and setup onClick - bind here
@@ -126,7 +129,7 @@ const Options = (props) => {
 // * AddOption -> Add Option component here
 
 // * Option -> Option component here
-
+// ! to pass arguments to a function, we can use arrow functions with events
 const Option = (props) => {
   return (
     <div>{props.optionText}
