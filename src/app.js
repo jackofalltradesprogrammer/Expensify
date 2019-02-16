@@ -1,4 +1,6 @@
 // react uses the first letter of the component to differentiate from HTML
+
+// stateless functional component
 class IndecisionApp extends React.Component {
   constructor(props) {
     super(props);
@@ -60,31 +62,54 @@ class IndecisionApp extends React.Component {
     );
   }
 }
-class Header extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>{this.props.title}</h1>
-        <h2>{this.props.subtitle}</h2>
-      </div>
-    );
-  }
-}
 
-class Action extends React.Component {
-  render() {
-    return (
-      <div>
-        <button 
-          onClick={this.props.handlePick} 
-          disabled={!this.props.hasOptions}
-        >
-          What Should I do?
-        </button>
-      </div>
-    );
-  }
-}
+const Header = (props) => {
+  return (
+    <div>
+      <h1>{props.title}</h1>
+      <h2>{props.subtitle}</h2>
+    </div>
+  );
+};
+// class Header extends React.Component {
+//   render() {
+//     return (
+//       <div>
+//         <h1>{this.props.title}</h1>
+//         <h2>{this.props.subtitle}</h2>
+//       </div>
+//     );
+//   }
+// }
+
+// ! In stateless functions props needs to be passed as arguments
+const Action = (props) => {
+  return (
+    <div>
+      <button 
+        onClick={props.handlePick} 
+        disabled={!props.hasOptions}
+      >
+        What Should I do?
+      </button>
+    </div>
+  );
+};
+
+// class Action extends React.Component {
+//   render() {
+//     return (
+//       <div>
+//         <button 
+//           onClick={this.props.handlePick} 
+//           disabled={!this.props.hasOptions}
+//         >
+//           What Should I do?
+//         </button>
+//       </div>
+//     );
+//   }
+// }
 
 // * Options -> Options Component here
 // * todo: Setup options prop form Options component
@@ -93,20 +118,30 @@ class Action extends React.Component {
 // * todo: Setup handleRemoveAll -> alert some message
 // * todo: setup onClick to fire the method
 
-class Options extends React.Component {
-  // * bind method can be used to customize a context execution
+const Options = (props) => {
+  return (
+    <div>
+      <button onClick={props.handleDeleteOptions}>Remove All</button>
+      {props.options.map((option) => (
+        <Option key={option} optionText={option} />
+      ))}
+    </div>
+  );
+};
+// class Options extends React.Component {
+// * bind method can be used to customize a context execution
   
-  render() {
-    return (
-      <div>
-        <button onClick={this.props.handleDeleteOptions}>Remove All</button>
-        {this.props.options.map((option) => (
-          <Option key={option} optionText={option} />
-        ))}
-      </div>
-    );
-  }
-}
+//   render() {
+//     return (
+//       <div>
+//         <button onClick={this.props.handleDeleteOptions}>Remove All</button>
+//         {this.props.options.map((option) => (
+//           <Option key={option} optionText={option} />
+//         ))}
+//       </div>
+//     );
+//   }
+// }
 
 // * AddOption -> Add Option component here
 // * todo: 1. Setup the form with text input and submit button
@@ -148,10 +183,27 @@ class AddOption extends React.Component {
 }
 
 // * Option -> Option component here
-class Option extends React.Component {
-  render() {
-    return <div>{this.props.optionText}</div>;
-  }
-}
+
+const Option = (props) => {
+    return (
+      <div>{props.optionText}</div>
+      );
+};
+// class Option extends React.Component {
+//   render() {
+//     return <div>{this.props.optionText}</div>;
+//   };
+// }
+
+// * In stateless functions, props is used to pass data. 'this' is not used because it's not a class and neither an instance
+
+// const User = (props) => {
+//   return (
+//     <div>
+//       <p>Name: {props.name}</p>
+//       <p>Age: </p>
+//     </div>
+//   );
+// };
 
 ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
