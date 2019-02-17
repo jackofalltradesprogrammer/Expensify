@@ -17,7 +17,12 @@ module.exports = {
         }]
     },
     // ! this helps to find the original location of the error in console
-    devtool: 'cheap-module-eval-source-map' 
+    devtool: 'cheap-module-eval-source-map' ,
+    // ! devServer takes incharge of building for webpack while giving the server abilities
+    // ! it puts the bundle.js in the memory for fast loading 
+    devServer: {
+        contentBase: path.join(__dirname, 'public'),
+    }
 };
 
 // * loader - a file gets transformed when webpack uses it
