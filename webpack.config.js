@@ -15,7 +15,9 @@ module.exports = {
             test: /\.js$/, // regex to tell when ever you see .js files run babel
             exclude: /node_modules/ // don't include js files in node_modules
         }]
-    }
+    },
+    // ! this helps to find the original location of the error in console
+    devtool: 'cheap-module-eval-source-map' 
 };
 
 // * loader - a file gets transformed when webpack uses it
