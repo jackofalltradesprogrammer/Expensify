@@ -1,2 +1,4 @@
+@import './base/settings'; // it's on the top becuase settings will be applied to other files
 @import './base/base';
+@import './components/container';
 @import './components/header';

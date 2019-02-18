@@ -4,7 +4,12 @@
 html {
   font-size: 62.5%;
 }
+
+// // TODO: dark-blue with value of #333745
+// // TODO: use as body background
+
 body {
+  background: $dark-blue;
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 1.6rem;
+  font-size: $m-size;
 }
