@@ -17,10 +17,11 @@ module.exports = {
         exclude: /node_modules/ // don't include js files in node_modules
       },
       {
-        test: /\.css$/, // regext to tell get .css files
+        test: /\.scss$/, // regext to tell get .scss files
         // ! CSS Loader convers css into javascript - Style Loader takes javascript css and adds to the dom with <style> tag
         // to provide arrays of loaders
-        use: ['style-loader', 'css-loader']
+        // ! sass-loader uses node-sass behinde the scenese to convert scss into css
+        use: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   },
