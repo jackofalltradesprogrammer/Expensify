@@ -5,27 +5,24 @@ import IndecisionApp from './components/IndecisionApp';
 
 ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
 
-class OldSyntax {
-  constructor() {
-    this.name = 'Mike';
-    this.getGreeting = this.getGreeting.bind(this);
-  }
-  getGreeting() {
-    return `hi. My name is ${this.name}`;
-  }
-}
-const oldSyntax = new OldSyntax();
-const getGreeting = oldSyntax.getGreeting;
-console.log(getGreeting());
+// const Layout = (props) => {
+//   return (
+//     <div>
+//       <p>header</p>
+       // ! props.children get all JSX passed between the parent tags
+//       {props.children}
+//       <p>footer</p>
+//     </div>
+//   );
+// };
 
-// ---------
-
-class NewSyntax {
-  name = 'Jen';
-  getGreeting = () => {
-    return `hi. My name is ${this.name}`;
-  }
-}
-const newSyntax = new NewSyntax();
-const newGetGreeting = newSyntax.getGreeting;
-console.log(newGetGreeting());
+// ReactDOM.render((
+//   <Layout>
+//     <div>
+//       <h1>Page Title</h1>
+//       <p>This is my page</p>
+//     </div>
+//   </Layout>
+//   ), document.getElementById('app'));
+// one way to pass jsx
+// ReactDOM.render(<Layout content={template} />, document.getElementById('app'));
