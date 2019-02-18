@@ -1,0 +1,38 @@
+// Widget
+.widget {
+  background: $light-blue;
+  margin-bottom: $xl-size;
+}
+
+// TODO: create a widget element selector (message) - use it on the p tag
+// TODO: off-white color
+// TODO: no margin
+// TODO: l-size padding on all sides
+// TODO: center the text using - text-align: center;
+// TODO: set the bottom border to a 1 px solid border lighted version of $light-blue 10%
+
+.widget__message{
+  color:$off-white;
+  margin: 0;
+  padding: $l-size;
+  text-align: center;
+  border-bottom: 1px solid lighten($color: $light-blue, $amount: 10%);
+}
+
+// Widget header
+.widget-header {
+  background: $blue;
+  color: $off-white;
+  display: flex;
+  justify-content: space-between;
+  padding: $m-size;
+}
+
+// TODO: setup an element selector for widget-header
+// TODO: set margin
+// TODO: use the class
+
+// removes extra space of title elemnet inside widget-header class
+.widget-header__title {
+  margin: 0;
+}
