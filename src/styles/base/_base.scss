@@ -1,0 +1,10 @@
+// partical scss file
+
+// rem pixels - better for accessibilty - 1 rem = 16 px and font-size set to 62.5% so 1 rem = 10px
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+}
