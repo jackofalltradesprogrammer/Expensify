@@ -31,7 +31,7 @@ module.exports = {
   // ! it puts the bundle.js in the memory for fast loading
   devServer: {
     contentBase: path.join(__dirname, 'public'),
-    // to always serve up 404 unknown error, we will handle with server client routing
+    // to always serve up 404 unknown error, we will handle with server client routing and sends it back to html file where React-router takes care of it
     historyApiFallback: true
   }
 };
