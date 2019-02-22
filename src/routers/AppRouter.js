@@ -12,10 +12,11 @@ const AppRouter = () => (
     <div>
       <Header />
       <Switch>
-        {/*-- Route render if the first character of url matches and to override that 'exact' match needs to be true */}
+        {/*-- Route render if the first character of url matches and to override that 'exact' match needs to be true.
+      ':' is used to make it dynamice and grab that value */}
         <Route path="/" component={ExpenseDashboardPage} exact={true} />
         <Route path="/create" component={AddExpensePage} />
-        <Route path="/edit" component={EditExpensePage} />
+        <Route path="/edit/:id" component={EditExpensePage} />
         <Route path="/help" component={HelpPage} />
         <Route component={NotFoundPage} />
       </Switch>
