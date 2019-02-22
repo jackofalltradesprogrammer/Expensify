@@ -30,7 +30,9 @@ module.exports = {
   // ! devServer takes incharge of building for webpack while giving the server abilities
   // ! it puts the bundle.js in the memory for fast loading
   devServer: {
-    contentBase: path.join(__dirname, 'public')
+    contentBase: path.join(__dirname, 'public'),
+    // to always serve up 404 unknown error, we will handle with server client routing
+    historyApiFallback: true
   }
 };
 
