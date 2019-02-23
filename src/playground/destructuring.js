@@ -49,4 +49,4 @@ const item = ['Coffee (hot)', '$2.00', '$2.50', '$2.75'];
 
 // grab first and third items using array destruction
 const [itemName, ,mediumPrice] = item;
-console.log(`A medium ${itemname} costs ${mediumPrice}.`);
+console.log(`A medium ${itemName} costs ${mediumPrice}.`);
