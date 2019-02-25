@@ -19,12 +19,23 @@ const addExpense = ({
 });
 
 // REMOVE_EXPENSE
-const removeExpense = ({id}) => ({
+const removeExpense = ({ id } = {}) => ({
   type: 'REMOVE_EXPENSE',
   id
 });
 
+// EDIT_EXPENSE
+const editExpense = (id, updates) => ({
+  type: 'EDIT_EXPENSE',
+  id,
+  updates
+});
+
 // SET_TEXT_FILTER
+const setTextFilter = (text = "") => ({
+  type: 'SET_TEXT_FILTER',
+  text
+});
 // SORT_BY_DATE
 // SORT_BY_AMOUNT
 // SET_START_DATE
@@ -41,7 +52,16 @@ const expensesReducer = (state = expenseReducerDefaultState, action) => {
       return [...state, action.expense];
     case 'REMOVE_EXPENSE':
       // use es6 destructuring structure with filter
-      return state.filter(({id}) => id !== action.id);
+      return state.filter(({ id }) => id !== action.id);
+    case 'EDIT_EXPENSE':
+      // use es6 object spreading syntax '...' to overide/update alreday created state with new values
+      return state.map(expense => {
+        if (expense.id === action.id) {
+          return { ...expense, ...action.updates };
+        } else {
+          return expense;
+        }
+      });
     default:
       return state;
   }
@@ -57,6 +77,8 @@ const filtersReducerDefaultState = {
 
 const filtersReducer = (state = filtersReducerDefaultState, action) => {
   switch (action.type) {
+    case 'SET_TEXT_FILTER':
+      return { ...state, text: action.text };
     default:
       return state;
   }
@@ -75,11 +97,19 @@ store.subscribe(() => {
   console.log(store.getState());
 });
 
-const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100 }));
+const expenseOne = store.dispatch(
+  addExpense({ description: 'Rent', amount: 100 })
+);
 console.log('TCL: expenseOne', expenseOne);
-const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount: 300 }));
+const expenseTwo = store.dispatch(
+  addExpense({ description: 'Coffee', amount: 300 })
+);
 
-store.dispatch(removeExpense({id: expenseOne.expense.id}));
+store.dispatch(removeExpense({ id: expenseOne.expense.id }));
+store.dispatch(editExpense(expenseTwo.expense.id, { amount: 500 }));
+
+store.dispatch(setTextFilter('rent'));
+store.dispatch(setTextFilter());
 
 const demoState = {
   expenses: [
@@ -98,3 +128,11 @@ const demoState = {
     endDate: null
   }
 };
+
+// const user = {
+//   name: 'Jen',
+//   age: 24
+// };
+// // ES6 spreading with object, we can override the name and value pairs in the object
+// // it will generate an error ..so we need to configure babel
+// console.log({ ...user, location: 'Philadelphia', age: 27 });
