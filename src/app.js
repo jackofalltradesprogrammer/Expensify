@@ -13,16 +13,16 @@ import './styles/styles.scss';
 const store = configureStore();
 
 // TODO addExpense -> Water bill
-store.dispatch(addExpense({ description: 'Water bill' }));
+store.dispatch(addExpense({ description: 'Water bill', amount: 4500 }));
 // TODO addExpense -> Gas bill
-store.dispatch(addExpense({ description: 'Gas bill' }));
+store.dispatch(addExpense({ description: 'Gas bill', amount: 4500 }));
 // TODO setTextFilter -> bill (2 items) -> water (1 item)
 store.dispatch(setTextFilter('water'));
 
 // As the Redux store changes, the component renders itself
-setTimeout(()=> {
+setTimeout(() => {
   store.dispatch(setTextFilter('bill'));
-},3000);
+}, 3000);
 
 // TODO getVisibleExpenses -> print visibles ones to screen
 const visibleExpenses = getVisibleExpenses(
