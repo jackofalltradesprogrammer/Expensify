@@ -5,21 +5,25 @@ import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 
 // date library to display time
-const now = moment();
-console.log(now.format('MMM Do, YYYY'));
+// const now = moment();
+// console.log(now.format('MMM Do, YYYY'));
 
 // TODO setup note state
 // TODO onChange and value for textarea
 
 export default class ExpenseForm extends React.Component {
-  state = {
-    description: '',
-    note: '',
-    amount: '',
-    createdAt: moment(),
-    calendarFocused: false,
-    error: ''
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      description: props.expense ? props.expense.description : '',
+      note: props.expense ? props.expense.note : '',
+      amount: props.expense ? (props.expense.amount / 100).toString() : '',
+      createdAt: props.expense ? moment(props.expense.createdAt) :moment(),
+      calendarFocused: false,
+      error: ''
+    };
+    
+  }
   onDescriptionChange = e => {
     const description = e.target.value;
     this.setState(() => ({ description }));
