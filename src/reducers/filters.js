@@ -1,9 +1,11 @@
+import moment from 'moment';
 // Filters Reducer : it tells how to update the state in redux store based on the actions
+
 const filtersReducerDefaultState = {
   text: '',
   sortBy: 'date',
-  startDate: null,
-  endDate: null
+  startDate: moment().startOf('month'),
+  endDate: moment().endOf('month')
 };
 
 export default (state = filtersReducerDefaultState, action) => {
