@@ -1,4 +1,4 @@
-// we are not using // ! import moment from 'moment' 
+// we are not using // ! import moment from 'moment' and __mocks__ tells jest to look for it
 // as jest will keep calling the instance and memory will be exhausted
 const moment = require.requireActual('moment');
 
