@@ -13,4 +13,4 @@ yarn-error.log*
 /.changelog
 .npm/
 public/
-src/tests/components/__snapshots__/Header.test.js.snap
+src/tests/components/__snapshots__/
