@@ -9,6 +9,7 @@ import getVisibleExpenses from './selectors/expenses';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css';
+import './firebase/firebase';
 
 // get access to Redux store for dispatching actions and state etc.
 const store = configureStore();
