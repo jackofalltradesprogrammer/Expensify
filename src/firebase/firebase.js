@@ -15,21 +15,37 @@ const database = firebase.database();
 
 // ref() - It gives us a reference to the subset of a database
 // if we don't pass anything we get the access to the root of the database
-database.ref().set({
-  name: 'Harpreet Singh',
-  age: 26,
-  isSingle: true,
-  location: {
-    city: 'Philadelphia',
-    country: 'United States'
-  }
-});
+database
+  .ref()
+  .set({
+    name: 'Harpreet Singh',
+    age: 26,
+    isSingle: true,
+    location: {
+      city: 'Philadelphia',
+      country: 'United States'
+    }
+  })
+  .then(() => {
+    console.log('Data is saved');
+  })
+  .catch(e => {
+    console.log('This failed.', e);
+  });
 
 // set can take anytime of data supplied to it
 // database.ref().set('This is my data.');
 
 // if no arguments supplied to ref, it erases everything
-database.ref('age').set(27);
-database.ref('location/city').set('New York');
+// database.ref('age').set(27);
+// database.ref('location/city').set('New York');
 // attributes object with height and weight
-database.ref('attributes').set({ height: 66, weight: 150 });
+database
+  .ref('attributes')
+  .set({ height: 66, weight: 150 })
+  .then(() => {
+    console.log('Data is saved');
+  })
+  .catch(e => {
+    console.log('Height and weight falied', e);
+  });
