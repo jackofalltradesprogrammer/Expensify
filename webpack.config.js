@@ -16,7 +16,7 @@ module.exports = env => {
   return {
     entry: './src/app.js',
     output: {
-      path: path.join(__dirname, 'public'),
+      path: path.join(__dirname, 'public', 'dist'),
       filename: 'bundle.js'
     },
     // module has rules array to tell what it should do
@@ -57,11 +57,13 @@ module.exports = env => {
     // we are changing the sourceMap for dev as the CSS source map are not displaying correctly
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     // ! devServer takes incharge of building for webpack while giving the server abilities
-    // ! it puts the bundle.js in the memory for fast loading
+    // ! it puts the bundle.js in the memory for fast loading and not in the public/dist folder
     devServer: {
       contentBase: path.join(__dirname, 'public'),
       // to always serve up 404 unknown error, we will handle with server client routing and sends it back to html file where React-router takes care of it
-      historyApiFallback: true
+      historyApiFallback: true,
+      // We need to tell dev-server where to look for the src files
+      publicPath: '/dist/'
     }
 
     // * loader - a file gets transformed when webpack uses it
