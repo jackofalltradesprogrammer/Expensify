@@ -10,7 +10,7 @@ module.exports = env => {
   const isProduction = env === 'production';
 
   // the instance to get the CSS out of the bundle.js
-  const CSSExtract = new ExtractTextPlugin('syles.css');
+  const CSSExtract = new ExtractTextPlugin('styles.css');
 
   console.log('env', env);
   return {
