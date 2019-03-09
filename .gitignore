@@ -12,5 +12,8 @@ yarn-debug.log*
 yarn-error.log*
 /.changelog
 .npm/
-public/
+public/bundle.js
+public/bundle.js.map
+public/styles.css
+public/styles.css.map
 src/tests/components/__snapshots__/
