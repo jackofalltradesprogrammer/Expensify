@@ -20,7 +20,8 @@ database
   .set({
     name: 'Harpreet Singh',
     age: 26,
-    isSingle: true,
+    stressLevel: 6,
+    job: { title: 'Software developer', company: 'Google' },
     location: {
       city: 'Philadelphia',
       country: 'United States'
@@ -33,15 +34,21 @@ database
     console.log('This failed.', e);
   });
 
-  // we can also remove data by setting it to null
-  // database.ref('isSingle').set(null);
+// we use object as an argument for update() to make the change; its different from set where you can pass anything
+// we can add or delete by setting null.
+// database.ref().update({
+//   name: 'Mike',
+//   age: 29,
+//   job: 'Software developer',
+//   isSingle: null
+// });
 
-// database
-//   .ref()
-//   .remove()
-//   .then(() => {
-//     console.log('Data was removed');
-//   })
-//   .catch(() => {
-//     console.log('Did not remove data', e);
-//   });
+// to update nested data instead of root we need to use a different syntax
+// change teh stressLevel to a 9
+// Change job.company to Amazon
+// Change location.city to Seattle
+database.ref().update({
+  stressLevel: 9,
+  'job/company': 'Amazon',
+  'location/city': 'Seattle'
+});
