@@ -33,19 +33,15 @@ database
     console.log('This failed.', e);
   });
 
-// set can take anytime of data supplied to it
-// database.ref().set('This is my data.');
+  // we can also remove data by setting it to null
+  // database.ref('isSingle').set(null);
 
-// if no arguments supplied to ref, it erases everything
-// database.ref('age').set(27);
-// database.ref('location/city').set('New York');
-// attributes object with height and weight
-database
-  .ref('attributes')
-  .set({ height: 66, weight: 150 })
-  .then(() => {
-    console.log('Data is saved');
-  })
-  .catch(e => {
-    console.log('Height and weight falied', e);
-  });
+// database
+//   .ref()
+//   .remove()
+//   .then(() => {
+//     console.log('Data was removed');
+//   })
+//   .catch(() => {
+//     console.log('Did not remove data', e);
+//   });
