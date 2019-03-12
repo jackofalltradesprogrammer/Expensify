@@ -19,7 +19,8 @@ export const startAddExpense = (expenseData = {}) => {
       createdAt = 0
     } = expenseData;
     const expense = { description, note, amount, createdAt };
-    database
+    // this will be useful for testing as it will return a promise, and we can do promise chaining
+    return database
       .ref('expenses')
       .push(expense)
       .then((ref) => {

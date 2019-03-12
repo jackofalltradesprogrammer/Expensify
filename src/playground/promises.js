@@ -1,9 +1,9 @@
 // Promise takes two functions one for resolving and other for rejection
 const promise = new Promise((resolve, reject) => {
   setTimeout(() => {
-    // resolve({ name: 'Harpreet', age: 29, message: 'This is my resolved data' }); // Resolve can take only one value, it can be a object
+    resolve({ name: 'Harpreet', age: 29, message: 'This is my resolved data' }); // Resolve can take only one value, it can be a object
     // resolve('This is my other resolved data'); //Promise executes resolve / reject just once ....so this one is ignored
-    reject('Something went wrong!');
+    // reject('Something went wrong!');
   }, 5000);
 });
 
@@ -13,6 +13,10 @@ console.log('before');
 promise
   .then(data => {
     console.log('1', data);
+    return 'some data';
+  })
+  .then((str) => {
+    console.log('does this run?', str);
   })
   .catch(error => {
     console.log('error: ', error);
