@@ -13,25 +13,68 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 
+export { firebase, database as default };
+
+// child_removed - this event get fired when an expense(child) is removed
+// and it returns the snapshot of the removed child
+// database.ref('expenses').on('child_removed', (snapshot) => {
+//   console.log(snapshot.key, snapshot.val());
+// });
+
+// // child_changed
+// database.ref('expenses').on('child_changed', (snapshot) => {
+//   console.log(snapshot.key, snapshot.val());
+// });
+
+// // child_added
+// database.ref('expenses').on('child_added', (snapshot) => {
+//   console.log(snapshot.key, snapshot.val());
+// });
+
+// const onValue = database.ref('expenses').on('value', snapshot => {
+//   const expenses = [];
+//   snapshot.forEach(childSnapshot => {
+//     expenses.push({ id: childSnapshot.key, ...childSnapshot.val() });
+//   });
+//   console.log(expenses);
+// });
+
+// database
+//   .ref('expenses')
+//   .once('value')
+//   .then(snapshot => {
+//     const expenses = [];
+//     // for each is used to iteratore over all the child nodes on the snapshot
+//     // and key can be used to get the value of the key of the node
+//     // and val vwill be the contents of the key
+//     snapshot.forEach((childSnapshot) => {
+//       expenses.push({
+//         id: childSnapshot.key,
+//         ...childSnapshot.val()
+//       });
+//     });
+//     console.log(expenses);
+//   });
+
 // TODO Setup "expenses" with three items (description, note, amount, createAt)
-database.ref('expenses').push({
-  description: 'Rent',
-  note: '',
-  amount: 19500,
-  createdAt: 983768768
-});
-database.ref('expenses').push({
-  description: 'Phone bill',
-  note: '',
-  amount: 5900,
-  createdAt: 932432383
-});
-database.ref('expenses').push({
-  description: 'Food',
-  note: '',
-  amount: 9195,
-  createdAt: 993454983
-});
+// database.ref('expenses').push({
+//   description: 'Rent',
+//   note: '',
+//   amount: 19500,
+//   createdAt: 983768768
+// });
+// database.ref('expenses').push({
+//   description: 'Phone bill',
+//   note: '',
+//   amount: 5900,
+//   createdAt: 932432383
+// });
+// database.ref('expenses').push({
+//   description: 'Food',
+//   note: '',
+//   amount: 9195,
+//   createdAt: 993454983
+// });
 
 // database.ref('notes/-L_hSVK5t6sEXKRGj5ii').update({
 //   body: 'Buy food'
@@ -39,7 +82,7 @@ database.ref('expenses').push({
 
 // database.ref('notes/-L_hSVK5t6sEXKRGj5ii').remove();
 
-// push() method is used to create a list with a uniqure property for every element pushed 
+// push() method is used to create a list with a uniqure property for every element pushed
 // and also returns its reference
 // database.ref('notes').push({
 //   title: 'Course Topics',
