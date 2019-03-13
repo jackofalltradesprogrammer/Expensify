@@ -13,9 +13,14 @@ console.log('before');
 promise
   .then(data => {
     console.log('1', data);
-    return 'some data';
+    // we added this promise and when this gets resolved then (str) is passed to then
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('This is my other promise');
+      }, 5000);
+    });
   })
-  .then((str) => {
+  .then(str => {
     console.log('does this run?', str);
   })
   .catch(error => {
@@ -23,12 +28,12 @@ promise
   });
 
 // the above can be used with a different syntax where then takes a second argument as a catch handler
-promise.then(
-  data => {
-    console.log('1', data);
-  },
-  error => {
-    console.log('error: ', error);
-  }
-);
+// promise.then(
+//   data => {
+//     console.log('1', data);
+//   },
+//   error => {
+//     console.log('error: ', error);
+//   }
+// );
 console.log('after');

@@ -1,8 +1,13 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { startAddExpense, addExpense, editExpense, removeExpense } from '../../actions/expenses';
+import {
+  startAddExpense,
+  addExpense,
+  editExpense,
+  removeExpense
+} from '../../actions/expenses';
 import expenses from '../fixtures/expenses';
-
+import database from '../../firebase/firebase';
 // A mock redux store to be used for testing
 const createMockStore = configureMockStore([thunk]);
 
@@ -38,7 +43,7 @@ test('should setup add expense action object with provided values', () => {
   });
 });
 
-test('should add expense to database adn store', (done) => {
+test('should add expense to database adn store', done => {
   const store = createMockStore({});
   const expenseData = {
     description: 'Mouse',
@@ -47,16 +52,55 @@ test('should add expense to database adn store', (done) => {
     createdAt: 1000
   };
   // this function is asynchronous as it takes time to run and we need to make jest wait
-  // jest won't finish the function untile done() is called 
+  // jest won't finish the function untile done() is called
   // which will be called after the promise is returned
-  store.dispatch(startAddExpense(expenseData)).then(() => {
-    expect(1).toBe(1);
-    done();
-  });
+  store
+    .dispatch(startAddExpense(expenseData))
+    .then(() => {
+      // get teh action that will be dispatched to the mock store and then do the assertions on them
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: 'ADD_EXPENSE',
+        expense: {
+          id: expect.any(String),
+          ...expenseData
+        }
+      });
+
+      // a promise is getting returned
+      return database.ref(`expenses/${actions[0].expense.id}`).once('value');
+    }) // we just implemented promise chaining by returning a promise, from inside a promise and using .then()
+    .then(snapshot => {
+      expect(snapshot.val()).toEqual(expenseData);
+      done();
+    });
 });
 
-test('should add expense with defaults to databse and store', () => {
-
+test('should add expense with defaults to databse and store', done => {
+  const store = createMockStore({});
+  const defaultExpense = {
+    description: '',
+    note: '',
+    amount: 0,
+    createdAt: 0
+  };
+  store
+    .dispatch(startAddExpense({}))
+    .then(dispatch => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: 'ADD_EXPENSE',
+        expense: {
+          id: expect.any(String),
+          ...defaultExpense
+        }
+      });
+      return database.ref(`expenses/${actions[0].expense.id}`).once('value');
+    })
+    .then(snapshot => {
+      expect(snapshot.val()).toEqual(defaultExpense);
+      done();
+    });
 });
 
 // test('should setup add expense action object with default values', () => {
