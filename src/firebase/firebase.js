@@ -1,13 +1,14 @@
 // it talkes all non-named exports and dumb them in firebase
 import * as firebase from 'firebase';
 
+// we don't want to pass API keys for security purposes..so we are passing through environment variables
 const config = {
-  apiKey: 'AIzaSyD94FKlyXjiSD7-eHrvFi-SqrT-w-HmSIo',
-  authDomain: 'expensify-c466a.firebaseapp.com',
-  databaseURL: 'https://expensify-c466a.firebaseio.com',
-  projectId: 'expensify-c466a',
-  storageBucket: 'expensify-c466a.appspot.com',
-  messagingSenderId: '39226797095'
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGIND_SENDER_ID
 };
 firebase.initializeApp(config);
 

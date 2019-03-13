@@ -1,6 +1,17 @@
 // entry  -> output where do we put it
 const path = require('path');
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+// heroku sets it up and for Jest(testing) we are using cross-env
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+// dotenv is used to get values from config files to be passed to NODE_ENV
+if (process.env.NODE_ENV === 'test') {
+  require('dotenv').config({ path: '.env.test' });
+} else if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config({ path: '.env.development' });
+}
 
 // config file needs an absolute path that why we are using node path module
 // we converted the object into function because webpack calls this function with env argument
@@ -52,7 +63,32 @@ module.exports = env => {
         }
       ]
     },
-    plugins: [CSSExtract],
+    plugins: [
+      CSSExtract,
+      // we need to pass api and evironment varaibles to bundle.js but we have to keep security in mind too
+      // we are setting up variables for client side javascript and weback has a method
+      // definePlugin actually takes string and not the value referenced by that string WITH QUOTES so we need to use JSON.stringfy
+      new webpack.DefinePlugin({
+        'process.env.FIREBASE_API_KEY': JSON.stringify(
+          process.env.FIREBASE_API_KEY
+        ),
+        'process.env.FIREBASE_AUTH_DOMAIN': JSON.stringify(
+          process.env.FIREBASE_AUTH_DOMAIN
+        ),
+        'process.env.FIREBASE_DATABASE_URL': JSON.stringify(
+          process.env.FIREBASE_DATABASE_URL
+        ),
+        'process.env.FIREBASE_PROJECT_ID': JSON.stringify(
+          process.env.FIREBASE_PROJECT_ID
+        ),
+        'process.env.FIREBASE_STORAGE_BUCKET': JSON.stringify(
+          process.env.FIREBASE_STORAGE_BUCKET
+        ),
+        'process.env.FIREBASE_MESSAGIND_SENDER_ID': JSON.stringify(
+          process.env.FIREBASE_MESSAGIND_SENDER_ID
+        )
+      })
+    ],
     // ! this helps to find the original location of the error in console
     // we are changing the sourceMap for dev as the CSS source map are not displaying correctly
     devtool: isProduction ? 'source-map' : 'inline-source-map',
