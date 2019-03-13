@@ -23,8 +23,8 @@ export const startAddExpense = (expenseData = {}) => {
     return database
       .ref('expenses')
       .push(expense)
-      .then((ref) => {
-        dispatch(addExpense({id: ref.key, ...expense}));
+      .then(ref => {
+        dispatch(addExpense({ id: ref.key, ...expense }));
       });
   };
 };
@@ -42,9 +42,26 @@ export const editExpense = (id, updates) => ({
 });
 
 // SET_EXPENSES
-export const setExpenses = (expenses) => ({
+export const setExpenses = expenses => ({
   type: 'SET_EXPENSES',
   expenses
 });
 
-// export const startSetExpenses;
+
+// this helps to fetch all the expenses and set the data to redux store...
+// we are returning a promise as our our app.js wants to do something with it....
+export const startSetExpenses = () => {
+  return dispatch => {
+    return database
+      .ref('expenses')
+      .once('value')
+      .then(snapshot => {
+        const expenses = [];
+        snapshot.forEach(childSnapshot => {
+          expenses.push({ id: childSnapshot.key, ...childSnapshot.val() });
+        });
+        dispatch(setExpenses(expenses));
+        console.log(expenses);
+      });
+  };
+};
