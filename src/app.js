@@ -4,7 +4,7 @@ import AppRouter, { history } from './routers/AppRouter';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 import { startSetExpenses } from './actions/expenses';
-import { setTextFilter } from './actions/filters';
+import { login, logout } from './actions/auth';
 import getVisibleExpenses from './selectors/expenses';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
@@ -33,6 +33,9 @@ ReactDOM.render(<p>Loading ...</p>, document.getElementById('app'));
 // auth() keeps an eye on authentication
 firebase.auth().onAuthStateChanged(user => {
   if (user) {
+    console.log('User\'s unique ID ', user.uid);
+    //  calls the action which sets the uid in REDUX with auth Reducer
+    store.dispatch(login(user.uid));
     store.dispatch(startSetExpenses()).then(() => {});
     renderApp();
     // if we have logged in and we are at logIn page - we need to redirect
@@ -40,6 +43,7 @@ firebase.auth().onAuthStateChanged(user => {
       history.push('/dashboard');
     }
   } else {
+    store.dispatch(logout());
     renderApp();
     history.push('/');
   }
