@@ -47,7 +47,6 @@ export const setExpenses = expenses => ({
   expenses
 });
 
-
 // this helps to fetch all the expenses and set the data to redux store...
 // we are returning a promise as our our app.js wants to do something with it....
 export const startSetExpenses = () => {
@@ -61,7 +60,20 @@ export const startSetExpenses = () => {
           expenses.push({ id: childSnapshot.key, ...childSnapshot.val() });
         });
         dispatch(setExpenses(expenses));
-        console.log(expenses);
+      });
+  };
+};
+
+// Expense Removal challenge
+
+// 1. Create startRemoveExpense (same call signature as removeExpense)
+export const startRemoveExpense = ({ id } = {}) => {
+  return dispatch => {
+    return database
+      .ref(`expenses/${id}`)
+      .remove()
+      .then(() => {
+        dispatch(removeExpense({ id }));
       });
   };
 };
