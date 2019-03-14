@@ -13,8 +13,9 @@ const config = {
 firebase.initializeApp(config);
 
 const database = firebase.database();
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
-export { firebase, database as default };
+export { firebase, googleAuthProvider, database as default };
 
 // child_removed - this event get fired when an expense(child) is removed
 // and it returns the snapshot of the removed child

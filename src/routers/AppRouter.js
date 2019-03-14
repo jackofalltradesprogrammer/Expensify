@@ -6,6 +6,7 @@ import EditExpensePage from '../components/EditExpensePage';
 import HelpPage from '../components/HelpPage';
 import Header from '../components/Header';
 import NotFoundPage from '../components/NotFoundPage';
+import LoginPage  from '../components/LoginPage';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -14,7 +15,8 @@ const AppRouter = () => (
       <Switch>
         {/*-- Route render if the first character of url matches and to override that 'exact' match needs to be true.
       ':' is used to make it dynamice and grab that value */}
-        <Route path="/" component={ExpenseDashboardPage} exact={true} />
+        <Route path="/" component={LoginPage} exact={true} />
+        <Route path="/dashboard" component={ExpenseDashboardPage} />
         <Route path="/create" component={AddExpensePage} />
         <Route path="/edit/:id" component={EditExpensePage} />
         <Route path="/help" component={HelpPage} />
