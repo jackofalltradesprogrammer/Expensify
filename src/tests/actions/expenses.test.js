@@ -7,7 +7,9 @@ import {
   removeExpense,
   setExpenses,
   startSetExpenses,
-  startRemoveExpense
+  startRemoveExpense,
+  setEditExpense,
+  startEditExpense
 } from '../../actions/expenses';
 import expenses from '../fixtures/expenses';
 import database from '../../firebase/firebase';
@@ -67,6 +69,25 @@ test('should setup edit expense action object', () => {
     type: 'EDIT_EXPENSE',
     updates: { note: 'Happy is cool' }
   });
+});
+
+test('should edit expenses from firebase', (done) => {
+  const store = createMockStore({});
+  const updates = { note: 'Happy is cool' };
+  const id = expenses[0].id;
+  store.dispatch(startEditExpense(id, updates))
+  .then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: 'EDIT_EXPENSE',
+      id,
+      updates
+    });
+    return database.ref(`expenses/${id}`).once('value');
+  }).then((snapshot) => {
+    expect(snapshot.val().note).toBe(updates.note);
+    done();
+  }); // attach .then here
 });
 
 // uuid() is unique everytime, so we need to find a trick to avoid mismatch of the value
