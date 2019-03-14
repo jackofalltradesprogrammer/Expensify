@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppRouter from './routers/AppRouter';
+import AppRouter, { history } from './routers/AppRouter';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 import { startSetExpenses } from './actions/expenses';
@@ -20,17 +20,27 @@ const jsx = (
   </Provider>
 );
 
+// this function is used to render the component only once below (with Firebase)
+let hasRendered = false;
+const renderApp = () => {
+  if (!hasRendered) {
+    ReactDOM.render(jsx, document.getElementById('app'));
+  }
+};
+
 ReactDOM.render(<p>Loading ...</p>, document.getElementById('app'));
 
-store.dispatch(startSetExpenses()).then(() => {
-  ReactDOM.render(jsx, document.getElementById('app'));
-});
-
 // auth() keeps an eye on authentication
-firebase.auth().onAuthStateChanged((user) => {
+firebase.auth().onAuthStateChanged(user => {
   if (user) {
-    console.log('log in');
+    store.dispatch(startSetExpenses()).then(() => {});
+    renderApp();
+    // if we have logged in and we are at logIn page - we need to redirect
+    if (history.location.pathname === '/') {
+      history.push('/dashboard');
+    }
   } else {
-    console.log('log out');
+    renderApp();
+    history.push('/');
   }
 });
