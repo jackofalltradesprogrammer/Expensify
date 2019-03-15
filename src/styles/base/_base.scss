@@ -1,5 +1,7 @@
 // partical scss file
-
+* {
+  box-sizing: border-box; //default is content-box
+}
 // rem pixels - better for accessibilty - 1 rem = 16 px and font-size set to 62.5% so 1 rem = 10px
 html {
   font-size: 62.5%;
