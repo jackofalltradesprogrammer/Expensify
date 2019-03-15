@@ -2,7 +2,14 @@
   background: $blue;
   border: none;
   color: white;
+  display: inline-block; // vertical and horizontal margining takes place
   font-size: $font-size-large;
   font-weight: 300;
+  line-height: 1; // as button will use only one line we don't need extra height
   padding: $s-size;
+  text-decoration: none;
+}
+
+.button--link {
+  background: none;
 }
