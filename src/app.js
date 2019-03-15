@@ -10,6 +10,7 @@ import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css';
 import { firebase } from './firebase/firebase';
+import LoadingPage from './components/LoadingPage';
 
 // get access to Redux store for dispatching actions and state etc.
 const store = configureStore();
@@ -28,12 +29,11 @@ const renderApp = () => {
   }
 };
 
-ReactDOM.render(<p>Loading ...</p>, document.getElementById('app'));
+ReactDOM.render(<LoadingPage />, document.getElementById('app'));
 
 // auth() keeps an eye on authentication
 firebase.auth().onAuthStateChanged(user => {
   if (user) {
-    console.log('User\'s unique ID ', user.uid);
     //  calls the action which sets the uid in REDUX with auth Reducer
     store.dispatch(login(user.uid));
     store.dispatch(startSetExpenses()).then(() => {});
