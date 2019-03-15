@@ -1,0 +1,12 @@
+.form{
+display: flex; // it applies only to the direct children of form
+flex-direction: column;
+> * { // to select all children
+  margin-bottom: $m-size;
+}
+}
+
+.form__error{
+  margin: 0 0 $m-size 0;
+  font-style: italic;
+}
