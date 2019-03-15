@@ -11,7 +11,9 @@ export const addExpense = expense => ({
 // we can return a function to REDUX as we are are using thunk (middleware)
 export const startAddExpense = (expenseData = {}) => {
   // this will be called internally by REDUX and dispatch will be passed to it
-  return dispatch => {
+  // this is called with getState also
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     const {
       description = '',
       note = '',
@@ -21,7 +23,7 @@ export const startAddExpense = (expenseData = {}) => {
     const expense = { description, note, amount, createdAt };
     // this will be useful for testing as it will return a promise, and we can do promise chaining
     return database
-      .ref('expenses')
+      .ref(`users/${uid}/expenses`)
       .push(expense)
       .then(ref => {
         dispatch(addExpense({ id: ref.key, ...expense }));
@@ -42,9 +44,10 @@ export const editExpense = (id, updates) => ({
 });
 
 export const startEditExpense = (id, updates) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     return database
-      .ref(`expenses/${id}`)
+      .ref(`users/${uid}/expenses/${id}`)
       .update(updates)
       .then(() => {
         dispatch(editExpense(id, updates));
@@ -61,9 +64,10 @@ export const setExpenses = expenses => ({
 // this helps to fetch all the expenses and set the data to redux store...
 // we are returning a promise as our our app.js wants to do something with it....
 export const startSetExpenses = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     return database
-      .ref('expenses')
+      .ref(`users/${uid}/expenses`)
       .once('value')
       .then(snapshot => {
         const expenses = [];
@@ -79,9 +83,10 @@ export const startSetExpenses = () => {
 
 // 1. Create startRemoveExpense (same call signature as removeExpense)
 export const startRemoveExpense = ({ id } = {}) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     return database
-      .ref(`expenses/${id}`)
+      .ref(`users/${uid}/expenses/${id}`)
       .remove()
       .then(() => {
         dispatch(removeExpense({ id }));
