@@ -2,11 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
 import { startEditExpense, startRemoveExpense } from '../actions/expenses';
+import ExpenseModal from './ExpenseModal';
 
 // TODO Refactor EditExpensePage to be a class based component
 // TODO Setup mapDispatchToProps editExpense and removeExpense
 
 export class EditExpensePage extends React.Component {
+  state = {
+    selectedExpense: undefined
+  };
+  // constructor(props){
+  //   super(props);
+  //   this.onRemove = this.onRemove.bind(this);
+  // }
   onSubmit = expense => {
     // TODO Dispatch the action to edit the expense
     this.props.startEditExpense(this.props.expense.id, expense);
@@ -15,9 +23,20 @@ export class EditExpensePage extends React.Component {
     // console.log('updated', expense);
   };
   onRemove = () => {
+    if (!this.state.selectedExpense) {
+      this.setState(() => ({
+        selectedExpense: this.props.expense.description
+      }));
+    } else {
+      this.setState(() => ({ selectedExpense: undefined }));
+    }
+  };
+
+  onRemoveConfirm = () => {
     this.props.startRemoveExpense({ id: this.props.expense.id });
     this.props.history.push('/');
   };
+
   render() {
     return (
       <div>
@@ -28,7 +47,14 @@ export class EditExpensePage extends React.Component {
         </div>
         <div className="content-container">
           <ExpenseForm expense={this.props.expense} onSubmit={this.onSubmit} />
-          <button className="button button--secondary" onClick={this.onRemove}>Remove Expense</button>
+          <button className="button button--secondary" onClick={this.onRemove}>
+            Remove Expense
+          </button>
+          <ExpenseModal
+            selectedExpense={this.state.selectedExpense}
+            onRemove={this.onRemove}
+            onRemoveConfirm={this.onRemoveConfirm}
+          />
         </div>
       </div>
     );
